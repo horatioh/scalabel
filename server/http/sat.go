@@ -229,11 +229,11 @@ func WrapHandler(handler http.Handler) HandleFunc {
 
 func WrapHandleFunc(fn HandleFunc) HandleFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		// check if Worker system is On
-		flag := env.WorkerSystem == "on" || env.WorkerSystem == "On" || env.WorkerSystem == "ON"
+		// check if User Management System is On
+		flag := env.UserManagement == "on" || env.UserManagement == "On" || env.UserManagement == "ON"
 		refreshTokenCookie, _ := r.Cookie("refreshTokenScalabel")
 		idCookie, _ := r.Cookie("idScalabel")
-		if !flag { // if worker system is off, continue
+		if !flag { // if User Management System is off, continue
 			fn(w, r)
 			return
 		} else if refreshTokenCookie == nil {
@@ -934,12 +934,12 @@ func gatewayHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(gateJson)
 }
 
-// Handles the flag value of Worker System during the redirection from index.html to /auth
+// Handles the flag value of User Management System during the redirection from index.html to /auth
 func loadHandler(w http.ResponseWriter, r *http.Request) {
 	Info.Printf("%s is requesting %s", r.RemoteAddr, r.URL)
-	Info.Printf("Worker system is %s", env.WorkerSystem)
+	Info.Printf("User Management System is %s", env.UserManagement)
 	// Check if WORKER_SYSTEM is On
-	if env.WorkerSystem == "on" || env.WorkerSystem == "On" || env.WorkerSystem == "ON" {
+	if env.UserManagement == "on" || env.UserManagement == "On" || env.UserManagement == "ON" {
 		// redirect to AWS authentication website
 		authUrl := fmt.Sprintf("https://satworker.auth.%v.amazoncognito.com/login?response_type=code&client_id=%v&redirect_uri=%v", env.Region, env.ClientId, env.RedirectUri)
 		http.Redirect(w, r, authUrl, 301)
@@ -953,7 +953,7 @@ func loadHandler(w http.ResponseWriter, r *http.Request) {
 // Handles the authenticatoin of access token
 func authHandler(w http.ResponseWriter, r *http.Request) {
 	// Check if WORKER_SYSTEM is On
-	flag := env.WorkerSystem == "on" || env.WorkerSystem == "On" || env.WorkerSystem == "ON"
+	flag := env.UserManagement == "on" || env.UserManagement == "On" || env.UserManagement == "ON"
 	if !flag {
 		// redirect to create
 		createUrl := "http://localhost:8686/create"

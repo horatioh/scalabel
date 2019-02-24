@@ -23,22 +23,22 @@ var (
 
 // Stores the config info found in config.yml
 type Env struct {
-	Port          int    `yaml:"port"`
-	DataDir       string `yaml:"data"`
-	SrcPath       string `yaml:"src"`
-	AppSubDir     string `yaml:"appSubDir"`
-	Database      string `yaml:"database"`
-	ModelGateHost string `yaml:"modelGateHost"`
-	ModelGatePort string `yaml:"modelGatePort"`
-	WorkerSystem  string `yaml:"workersystem"`
-	Region        string `yaml:"region"`
-	ClientId      string `yaml:"clientId"`
-	RedirectUri   string `yaml:"redirectUri"`
-	LogOutUri     string `yaml:logOutUri`
-	ClientSecret  string `yaml:"clientSecret"`
-	AWSTokenUrl   string `yaml:"awsTokenURL"`
-	AwsJwkUrl     string `yaml:"awsJwkUrl"`
-	UserPoolID    string `yaml:"userPoolID"`
+	Port           int    `yaml:"port"`
+	DataDir        string `yaml:"data"`
+	SrcPath        string `yaml:"src"`
+	AppSubDir      string `yaml:"appSubDir"`
+	Database       string `yaml:"database"`
+	ModelGateHost  string `yaml:"modelGateHost"`
+	ModelGatePort  string `yaml:"modelGatePort"`
+	UserManagement string `yaml:"UserManagement"`
+	Region         string `yaml:"region"`
+	ClientId       string `yaml:"clientId"`
+	RedirectUri    string `yaml:"redirectUri"`
+	LogOutUri      string `yaml:logOutUri`
+	ClientSecret   string `yaml:"clientSecret"`
+	AWSTokenUrl    string `yaml:"awsTokenURL"`
+	AwsJwkUrl      string `yaml:"awsJwkUrl"`
+	UserPoolID     string `yaml:"userPoolID"`
 }
 
 func (env Env) AppDir() string {

@@ -78,21 +78,6 @@ let config = {
           },
         },
       },
-      {
-        test: /\.css$/,
-        use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader?modules',
-            options: {
-              modules: true,
-              localIdentName: '[name]__[local]--[hash:base64:5]',
-            },
-          },
-        ],
-      },
     ],
   },
 };
