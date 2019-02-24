@@ -23,7 +23,6 @@ import (
 )
 
 func validateAccessToken(tokenStr, region, userPoolID string, jwk map[string]JWKKey) (*jwt.Token, error) {
-	fmt.Println(tokenStr)
 	// Decode the token string into JWT format.
 	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
 
