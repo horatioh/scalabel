@@ -1,8 +1,23 @@
 {
   "compilerOptions": {
-    "outDir": "./built",
-    "allowJs": true,
-    "target": "es5"
+    "outDir": "./dist/",        // path to output directory
+    "sourceMap": true,          // allow sourcemap support
+    "strictNullChecks": true,   // enable strict null checks as a best practice
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "module": "es6",            // specify module code generation
+    "jsx": "react",             // use typescript to transpile jsx to js
+    "target": "es5",            // specify ECMAScript target version
+    "allowJs": true,             // allow a partial TypeScript and JavaScript codebase
+    "moduleResolution": "node"
   },
-  "include": ["./src/**/*"]
+  "include": [
+    "app/src/js/entries/worker.tsx",
+    "app/src/js/entries/admin.tsx",
+    "app/src/js/components/admin_dashboard.tsx",
+    "app/src/js/components/worker_dashboard.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
