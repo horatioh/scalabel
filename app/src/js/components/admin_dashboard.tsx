@@ -208,20 +208,27 @@ const CustomTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-
 declare module '@material-ui/core/styles/createMuiTheme' {
-    interface setColor {
+    interface Theme {
         palette: {
             common: {
-                grey:"#616161"
+                grey: PaletteOptions
+            },
+        },
+    }
+    interface ThemeOptions {
+        palette?: {
+            common?: {
+                grey?: PaletteOptions
             },
         },
     }
 }
 
-import createMuiTheme, { setColor } from '@material-ui/core/styles/createMuiTheme';
-// @ts-ignore
-const theme = createMuiTheme({setColor});
+import createMuiTheme, {ThemeOptions} from '@material-ui/core/styles/createMuiTheme';
+import {PaletteOptions} from "@material-ui/core/styles/createPalette";
+
+const theme = createMuiTheme({ palette: {common: {grey:"#616161"},},});
 
 const tableStyles: any = ({
   root: {
