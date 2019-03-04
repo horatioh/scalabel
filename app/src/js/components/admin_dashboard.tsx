@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 // $FlowFixMe
 import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import {MuiThemeProvider} from '@material-ui/core/styles';
 // lists
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -26,8 +26,6 @@ import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
-// color
-import grey from '@material-ui/core/colors/grey';
 
 /** *******************/
 /* Sidebar: mainList */
@@ -51,7 +49,7 @@ const drawerWidth = 285;
     views: Array<Object>
 }*/
 
-const styles = (theme:any) => ({
+const styles : any = (theme:any) => ({
   root: {
     display: 'flex',
   },
@@ -110,7 +108,7 @@ const styles = (theme:any) => ({
  * @param {Object} props
  * @return {jsx} component
  */
-function Dashboard(props) {
+function Dashboard(props: { classes: any; }) {
     // $FlowFixMe
   const {classes} = props;
     /**
@@ -134,7 +132,7 @@ function Dashboard(props) {
                 >
                     Scalabel Admin Dashboard
                 </Typography>
-                <IconButton classNames={classes.logout} onClick={logout}>
+                <IconButton className={classes.logout} onClick={logout}>
                   <SvgIcon >
                       <path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67
                     11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2
@@ -150,7 +148,7 @@ function Dashboard(props) {
                 paper: classNames(classes.drawerPaper),
             }}
         >
-            <div className={classes.toolbarIcon}></div>
+            <div className={classes.toolbarIcon}/>
             <Divider/>
             <List>{mainListItems}</List>
             <Divider/>
@@ -161,14 +159,14 @@ function Dashboard(props) {
                 Projects
             </Typography>
             <Typography component="div" className={classes.chartContainer}>
-                <ProjectTable classes = {tableStyles}/>
+                <ProjectTableDisplay classes = {tableStyles}/>
             </Typography>
             <div><br/></div>
             <Typography variant="h6" gutterBottom component="h2">
                 Users Lists
             </Typography>
             <Typography component="div" className={classes.chartContainer}>
-                <WorkersTable classes = {tableStyles}/>
+                <WorkersTableDisplay classes = {tableStyles}/>
             </Typography>
         </main>
     </div>);
@@ -180,7 +178,7 @@ function Dashboard(props) {
 /** **************/
 // post Ajax request for users list
 let xhr = new XMLHttpRequest();
-let usersToexpress;
+let usersToexpress: { map: (arg0: (row: any, i: any) => JSX.Element) => React.ReactNode; };
 xhr.onreadystatechange = function() {
   if (xhr.readyState == 4 && xhr.status == 200) {
     usersToexpress = JSON.parse(xhr.responseText);
@@ -191,7 +189,7 @@ xhr.send(null);
 
 // post Ajax request for projects
 let xhrproj = new XMLHttpRequest();
-let projectsToexpress;
+let projectsToexpress: { map: (arg0: (row: any, i: any) => JSX.Element) => React.ReactNode; };
 xhrproj.onreadystatechange = function() {
   if (xhrproj.readyState == 4 && xhrproj.status == 200) {
     projectsToexpress = JSON.parse(xhrproj.responseText);
@@ -210,15 +208,22 @@ const CustomTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const theme = createMuiTheme({
-  palette: {
-    common: {
-      grey: grey[700],
-    },
-  },
-});
 
-const tableStyles = (theme) => ({
+declare module '@material-ui/core/styles/createMuiTheme' {
+    interface setColor {
+        palette: {
+            common: {
+                grey:"#616161"
+            },
+        },
+    }
+}
+
+import createMuiTheme, { setColor } from '@material-ui/core/styles/createMuiTheme';
+// @ts-ignore
+const theme = createMuiTheme({setColor});
+
+const tableStyles: any = ({
   root: {
     width: '100%',
     marginTop: theme.spacing.unit * 3,
@@ -240,7 +245,7 @@ const tableStyles = (theme) => ({
  * @param {object} Props
  * @return {jsx} component
  */
-let ProjectTable = function(Props) {
+let ProjectTable = function(Props: { classes: any; }) {
     // $FlowFixMe
   const {classes} = Props;
   return (
@@ -256,7 +261,7 @@ let ProjectTable = function(Props) {
         <TableBody>
           {projectsToexpress.map((row, i) => (
             <TableRow className={classes.row} key={i}>
-              <CustomTableCell button onClick={() => {
+              <CustomTableCell className={"align"} onClick={() => {
                 toProject(row);
                 }} component="th" scope="row">
                 {row}
@@ -268,15 +273,12 @@ let ProjectTable = function(Props) {
     </Paper>
   );
 };
+
 // $FlowFixMe
-ProjectTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-// $FlowFixMe
-ProjectTable = withStyles(tableStyles)(ProjectTable);
+let ProjectTableDisplay = withStyles(tableStyles)(ProjectTable);
 
 
-let WorkersTable = function(props) {
+let WorkersTable = function(props: { classes: any; }) {
     // $FlowFixMe
   const {classes} = props;
   return (
@@ -302,13 +304,9 @@ let WorkersTable = function(props) {
     </Paper>
   );
 };
-// $FlowFixMe
-WorkersTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 // $FlowFixMe
-WorkersTable = withStyles(tableStyles)(WorkersTable);
+let WorkersTableDisplay = withStyles(tableStyles)(WorkersTable);
 
 /**
  * Redirect user to create new projects
@@ -328,7 +326,7 @@ function logout(): void {
  * Redirect user(either admin or worker) to the project's dashboard
  * @param {string} projectName - the values to convert.
  */
-function toProject(projectName): void{
+function toProject(projectName: string): void{
   window.location.href = '/dashboard?project_name=' + projectName;
 }
 

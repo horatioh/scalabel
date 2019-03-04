@@ -27,7 +27,7 @@ import grey from '@material-ui/core/colors/grey';
 
 const drawerWidth = 285;
 
-const styles = (theme: any) => ({
+const styles : any = (theme: any) => ({
   root: {
     display: 'flex',
   },
@@ -124,7 +124,7 @@ function Dashboard(props: any) {
             Projects
           </Typography>
           <Typography component="div" className={classes.chartContainer}>
-            <ProjectTable classes = {tableStyles}/>
+            <ProjectTableDisplay classes = {tableStyles}/>
           </Typography>
         </main>
       </div>
@@ -158,16 +158,22 @@ const CustomTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const theme = createMuiTheme({
-  palette: {
-    common: {
-      grey: grey[700],
-    },
-  },
-});
 
+declare module '@material-ui/core/styles/createMuiTheme' {
+    interface setColor {
+        palette: {
+            common: {
+                grey:"#616161"
+            },
+        },
+    }
+}
 
-const tableStyles = (
+import  { setColor } from '@material-ui/core/styles/createMuiTheme';
+// @ts-ignore
+const theme = createMuiTheme({setColor});
+
+const tableStyles : any = (
     theme: {
       spacing: { unit: number; }; palette: { background: { default: any; }; };
     }
@@ -221,11 +227,7 @@ let ProjectTable = function(props: { classes: any; }) {
   );
 };
 
-ProjectTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-// $FlowFixMe
-ProjectTable = withStyles(tableStyles)(ProjectTable);
+let ProjectTableDisplay = withStyles(tableStyles)(ProjectTable);
 
 /**
  * Redirect user to logOut page
