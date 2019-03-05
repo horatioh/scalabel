@@ -8,7 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import {MuiThemeProvider} from '@material-ui/core/styles';
+
 
 // icons
 import SvgIcon from '@material-ui/core/SvgIcon';
@@ -158,27 +159,23 @@ const CustomTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
+import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
+import { PaletteOptions } from "@material-ui/core/styles/createPalette";
+import { Palette } from "@material-ui/core/styles/createPalette";
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import createMuiTheme from "@material-ui/core/es/styles/createMuiTheme";
 
 declare module '@material-ui/core/styles/createMuiTheme' {
     interface Theme {
-        palette: {
-            common: {
-                grey: PaletteOptions
-            },
-        },
+        palette: Palette
     }
     interface ThemeOptions {
-        palette?: {
-            common?: {
-                grey?: PaletteOptions
-            },
-        },
+        palette?: PaletteOptions
     }
 }
 
-import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
-import {PaletteOptions} from "@material-ui/core/styles/createPalette";
 
+// @ts-ignore
 const theme = createMuiTheme({ palette: {common: {grey:"#616161"},},});
 
 const tableStyles : any = (
