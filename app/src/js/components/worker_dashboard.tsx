@@ -9,6 +9,8 @@ import IconButton from '@material-ui/core/IconButton';
 import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {MuiThemeProvider} from '@material-ui/core/styles';
+import { Palette, PaletteOptions } from "@material-ui/core/styles/createPalette";
+import createMuiTheme from "@material-ui/core/es/styles/createMuiTheme";
 
 
 // icons
@@ -19,8 +21,6 @@ import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
-// color
-import grey from '@material-ui/core/colors/grey';
 
 /** ********/
 /* Styles */
@@ -159,11 +159,6 @@ const CustomTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
-import { PaletteOptions } from "@material-ui/core/styles/createPalette";
-import { Palette } from "@material-ui/core/styles/createPalette";
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import createMuiTheme from "@material-ui/core/es/styles/createMuiTheme";
 
 declare module '@material-ui/core/styles/createMuiTheme' {
     interface Theme {

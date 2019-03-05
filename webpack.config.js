@@ -73,7 +73,7 @@ let config = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.t(s|sx)$/,
         use: {loader: 'awesome-typescript-loader'},
        },
       {

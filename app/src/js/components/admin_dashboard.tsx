@@ -7,6 +7,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import {Palette, PaletteOptions} from "@material-ui/core/styles/createPalette";
 // $FlowFixMe
 import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -26,6 +28,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
+
 
 /** *******************/
 /* Sidebar: mainList */
@@ -217,8 +220,6 @@ declare module '@material-ui/core/styles/createMuiTheme' {
     }
 }
 
-import createMuiTheme, {ThemeOptions} from '@material-ui/core/styles/createMuiTheme';
-import {Palette, PaletteOptions} from "@material-ui/core/styles/createPalette";
 
 // @ts-ignore
 const theme = createMuiTheme({ palette: {common: {grey:"#616161"},},});
@@ -246,7 +247,6 @@ const tableStyles: any = ({
  * @return {jsx} component
  */
 let ProjectTable = function(Props: { classes: any; }) {
-    // $FlowFixMe
   const {classes} = Props;
   return (
     <Paper className={classes.root}>
@@ -274,12 +274,11 @@ let ProjectTable = function(Props: { classes: any; }) {
   );
 };
 
-// $FlowFixMe
+
 let ProjectTableDisplay = withStyles(tableStyles)(ProjectTable);
 
 
 let WorkersTable = function(props: { classes: any; }) {
-    // $FlowFixMe
   const {classes} = props;
   return (
     <Paper className={classes.root}>
@@ -305,7 +304,6 @@ let WorkersTable = function(props: { classes: any; }) {
   );
 };
 
-// $FlowFixMe
 let WorkersTableDisplay = withStyles(tableStyles)(WorkersTable);
 
 /**
