@@ -137,12 +137,12 @@ function Dashboard(props: any) {
 /** **************/
 // post Ajax request for projects
 let xhrproj = new XMLHttpRequest();
-let projectsToexpress: {
+let projectsToExpress: {
   map: (arg0: (row: any, i: any) => JSX.Element) => React.ReactNode;
 };
 xhrproj.onreadystatechange = function() {
   if (xhrproj.readyState == 4 && xhrproj.status == 200) {
-    projectsToexpress = JSON.parse(xhrproj.responseText);
+    projectsToExpress = JSON.parse(xhrproj.responseText);
   }
 };
 xhrproj.open('get', './postProjectNames', false);
@@ -217,7 +217,7 @@ let ProjectTable = function(props: { classes: any; }) {
           </TableHead>
         </MuiThemeProvider>
         <TableBody>
-          {projectsToexpress.map((row: any, i: any) => (
+          {projectsToExpress.map((row: any, i: any) => (
             <TableRow className={classes.row} key={i}>
               <CustomTableCell onClick={() => {
                 toProject(row);

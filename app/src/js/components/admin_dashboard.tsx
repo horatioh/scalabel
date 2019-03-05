@@ -178,10 +178,10 @@ function Dashboard(props: { classes: any; }) {
 /** **************/
 // post Ajax request for users list
 let xhr = new XMLHttpRequest();
-let usersToexpress: { map: (arg0: (row: any, i: any) => JSX.Element) => React.ReactNode; };
+let usersToExpress: { map: (arg0: (row: any, i: any) => JSX.Element) => React.ReactNode; };
 xhr.onreadystatechange = function() {
   if (xhr.readyState == 4 && xhr.status == 200) {
-    usersToexpress = JSON.parse(xhr.responseText);
+    usersToExpress = JSON.parse(xhr.responseText);
   }
 };
 xhr.open('get', './postUsers', false);
@@ -189,10 +189,10 @@ xhr.send(null);
 
 // post Ajax request for projects
 let xhrproj = new XMLHttpRequest();
-let projectsToexpress: { map: (arg0: (row: any, i: any) => JSX.Element) => React.ReactNode; };
+let projectsToExpress: { map: (arg0: (row: any, i: any) => JSX.Element) => React.ReactNode; };
 xhrproj.onreadystatechange = function() {
   if (xhrproj.readyState == 4 && xhrproj.status == 200) {
-    projectsToexpress = JSON.parse(xhrproj.responseText);
+    projectsToExpress = JSON.parse(xhrproj.responseText);
   }
 };
 xhrproj.open('get', './postProjectNames', false);
@@ -259,7 +259,7 @@ let ProjectTable = function(Props: { classes: any; }) {
           </TableHead>
         </MuiThemeProvider>
         <TableBody>
-          {projectsToexpress.map((row, i) => (
+          {projectsToExpress.map((row, i) => (
             <TableRow className={classes.row} key={i}>
               <CustomTableCell className={"align"} onClick={() => {
                 toProject(row);
@@ -291,7 +291,7 @@ let WorkersTable = function(props: { classes: any; }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {usersToexpress.map((row, i) => (
+          {usersToExpress.map((row, i) => (
             <TableRow className={classes.row} key={i}>
               <CustomTableCell component="th" scope="row">
                 {row.Email}
