@@ -9,10 +9,8 @@ import IconButton from '@material-ui/core/IconButton';
 import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {MuiThemeProvider} from '@material-ui/core/styles';
-import { Palette, PaletteOptions } from "@material-ui/core/styles/createPalette";
-import createMuiTheme from "@material-ui/core/es/styles/createMuiTheme";
-
-
+import createMuiTheme from '@material-ui/core/es/styles/createMuiTheme';
+import { Palette, PaletteOptions } from '@material-ui/core/styles/createPalette';
 // icons
 import SvgIcon from '@material-ui/core/SvgIcon';
 // table
@@ -22,36 +20,32 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 
-/** ********/
 /* Styles */
-/** ********/
-
 const drawerWidth = 285;
-
-const styles : any = (theme: any) => ({
+const styles: any = (theme: any) => ({
   root: {
-    display: 'flex',
+    display: 'flex'
   },
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    paddingRight: 24
   },
   toolbarIcon: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: '0 8px',
-    ...theme.mixins.toolbar,
+    ...theme.mixins.toolbar
   },
   appBar: {
     backgroundColor: '#333',
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
+      duration: theme.transitions.duration.leavingScreen
+    })
   },
   title: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   drawerPaper: {
     position: 'relative',
@@ -59,22 +53,22 @@ const styles : any = (theme: any) => ({
     width: drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+      duration: theme.transitions.duration.enteringScreen
+    })
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
     height: '100vh',
-    overflow: 'auto',
+    overflow: 'auto'
   },
   chartContainer: {
-    marginLeft: -22,
+    marginLeft: -22
   },
   h5: {
-    marginBottom: theme.spacing.unit * 2,
-  },
+    marginBottom: theme.spacing.unit * 2
+  }
 });
 
 /**
@@ -93,14 +87,14 @@ function Dashboard(props: any) {
       <div className={classes.root}>
         <CssBaseline />
           <AppBar
-            position="absolute"
+            position='absolute'
             className={classNames(classes.appBar)}
           >
             <Toolbar className={classes.toolbar}>
               <Typography
-                component="h1"
-                variant="h6"
-                color="inherit"
+                component='h1'
+                variant='h6'
+                color='inherit'
                 noWrap
                 className={classes.title}
               >
@@ -111,20 +105,20 @@ function Dashboard(props: any) {
                     onClick={logout}
                 >
                   <SvgIcon >
-                    <path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67
+                    <path d='M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67
                     11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2
                     2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9
-                    2-2V5c0-1.1-.9-2-2-2z" fill="#ffffff"/>
+                    2-2V5c0-1.1-.9-2-2-2z' fill='#ffffff'/>
                   </SvgIcon>
                 </IconButton>
             </Toolbar>
           </AppBar>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          <Typography variant="h6" gutterBottom component="h2">
+          <Typography variant='h6' gutterBottom component='h2'>
             Projects
           </Typography>
-          <Typography component="div" className={classes.chartContainer}>
+          <Typography component='div' className={classes.chartContainer}>
             <ProjectTableDisplay classes = {tableStyles}/>
           </Typography>
         </main>
@@ -132,48 +126,43 @@ function Dashboard(props: any) {
     );
   }
 
-/** **************/
 /* AJAX request */
-/** **************/
 // post Ajax request for projects
-let xhrproj = new XMLHttpRequest();
+const xhrproj = new XMLHttpRequest();
 let projectsToExpress: {
   map: (arg0: (row: any, i: any) => JSX.Element) => React.ReactNode;
 };
 xhrproj.onreadystatechange = function() {
-  if (xhrproj.readyState == 4 && xhrproj.status == 200) {
+  if (xhrproj.readyState === 4 && xhrproj.status === 200) {
     projectsToExpress = JSON.parse(xhrproj.responseText);
   }
 };
 xhrproj.open('get', './postProjectNames', false);
 xhrproj.send(null);
 
-
 const CustomTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: '#333',
-    color: theme.palette.common.white,
+    color: theme.palette.common.white
   },
   body: {
-    fontSize: 16,
-  },
+    fontSize: 16
+  }
 }))(TableCell);
-
 
 declare module '@material-ui/core/styles/createMuiTheme' {
     interface Theme {
-        palette: Palette
+        palette: Palette;
     }
     interface ThemeOptions {
-        palette?: PaletteOptions
+        palette?: PaletteOptions;
     }
 }
 
-
 // @ts-ignore
-const theme = createMuiTheme({ palette: {common: {grey:"#616161"},},});
+const theme = createMuiTheme({ palette: {common: {grey: '#616161'}}});
 
-const tableStyles : any = (
+const tableStyles: any = (
     theme: {
       spacing: { unit: number; }; palette: { background: { default: any; }; };
     }
@@ -181,16 +170,16 @@ const tableStyles : any = (
   root: {
     width: '100%',
     marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
+    overflowX: 'auto'
   },
   table: {
-    minWidth: 700,
+    minWidth: 700
   },
   row: {
     '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.background.default,
-    },
-  },
+      backgroundColor: theme.palette.background.default
+    }
+  }
 });
 
 /**
@@ -199,7 +188,7 @@ const tableStyles : any = (
  * @param {object} props
  * @return {jsx} component
  */
-let ProjectTable = function(props: { classes: any; }) {
+const ProjectTable = function(props: { classes: any; }) {
   const {classes} = props;
   return (
     <Paper className={classes.root}>
@@ -216,7 +205,7 @@ let ProjectTable = function(props: { classes: any; }) {
             <TableRow className={classes.row} key={i}>
               <CustomTableCell onClick={() => {
                 toProject(row);
-                }} component="th" scope="row">
+                }} component='th' scope='row'>
                 {row}
               </CustomTableCell>
             </TableRow>
@@ -227,7 +216,7 @@ let ProjectTable = function(props: { classes: any; }) {
   );
 };
 
-let ProjectTableDisplay = withStyles(tableStyles)(ProjectTable);
+const ProjectTableDisplay = withStyles(tableStyles)(ProjectTable);
 
 /**
  * Redirect user to logOut page
@@ -240,12 +229,12 @@ function logout(): void {
  * Redirect user(either admin or worker) to the project's dashboard
  * @param {string} projectName - the values to convert.
  */
-function toProject(projectName: string): void{
+function toProject(projectName: string): void {
   window.location.href = '/dashboard?project_name=' + projectName;
 }
 
 Dashboard.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Dashboard);

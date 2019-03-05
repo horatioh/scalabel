@@ -5,13 +5,13 @@ src: "."
 database: "local"
 modelGateHost: "127.0.0.1"
 modelGatePort: "8001"
-UserManagement: "On"
-region: "us-east-1"
-clientId: "37vq85671q0anks7daqqbceb8g" 
-redirectUri: "http://localhost:8686/auth"
-logOutUri: "http://localhost:8686"
-clientSecret: "aut2lsdtjqg6fo74kjb9dcp4eseo9hbuavqsm72av9j21m0v3ti"
-awsTokenURL: "https://satworker.auth.us-east-1.amazoncognito.com/oauth2/token"
-awsJwkUrl : "https://cognito-idp.%v.amazonaws.com/%v/.well-known/jwks.json"
-userPoolID: "us-east-1_Jgg4nUQdn"
+userManagement: "off"
+region: 
+clientId: 
+redirectUri: 
+logOutUri: 
+clientSecret: 
+awsTokenURL: 
+awsJwkUrl : 
+userPoolID: 
 ...
