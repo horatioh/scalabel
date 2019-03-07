@@ -1,5 +1,5 @@
 import React from 'react';
-import theme from '../theme';
+import theme from '../styles/theme';
 import classNames from 'classnames';
 import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {MuiThemeProvider} from '@material-ui/core/styles';
-import {dashboardStyles, tableCellStyles, tableStyles} from './dashboard_styles';
+import {dashboardStyles, tableCellStyles, tableStyles} from '../styles/dashboard_styles';
 // icons
 import SvgIcon from '@material-ui/core/SvgIcon';
 // table
@@ -87,7 +87,6 @@ function Dashboard(props: any) {
       </div>
     );
   }
-
 const DashboardTableCell = withStyles(tableCellStyles)(TableCell);
 
 /**

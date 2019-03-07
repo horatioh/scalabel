@@ -1,5 +1,5 @@
 import React from 'react';
-import theme from '../theme';
+import theme from '../styles/theme';
 import classNames from 'classnames';
 import Paper from '@material-ui/core/Paper';
 import Drawer from '@material-ui/core/Drawer';
@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {MuiThemeProvider} from '@material-ui/core/styles';
-import {dashboardStyles, tableCellStyles, tableStyles} from './dashboard_styles';
+import {dashboardStyles, tableCellStyles, tableStyles} from '../styles/dashboard_styles';
 // lists
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
