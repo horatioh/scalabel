@@ -1,7 +1,6 @@
 import React from 'react';
-import classNames from 'classnames';
 import theme from '../theme';
-import dashboard_styles from './dashboard_styles';
+import classNames from 'classnames';
 import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {MuiThemeProvider} from '@material-ui/core/styles';
+import {dashboardStyles, tableCellStyles, tableStyles} from './dashboard_styles';
 // icons
 import SvgIcon from '@material-ui/core/SvgIcon';
 // table
@@ -18,6 +18,20 @@ import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
+
+// post Ajax request for projects
+const xhrproj = new XMLHttpRequest();
+let projectsToExpress: { map: (arg0: (row: any, i: any) => JSX.Element) => React.ReactNode; };
+xhrproj.onreadystatechange = function() {
+    if (xhrproj.readyState === 4 && xhrproj.status === 200) {
+        projectsToExpress = JSON.parse(xhrproj.responseText);
+    }
+};
+xhrproj.open('get', './postProjectNames', false);
+xhrproj.send(null);
+
+/* Theme for dashboard, set main color as grey */
+const myTheme = theme({ palette: { primary: {main: '#616161'} }});
 
 /**
  * This is Dashboard component that displays
@@ -67,55 +81,14 @@ function Dashboard(props: any) {
             Projects
           </Typography>
           <Typography component='div' className={classes.chartContainer}>
-            <ProjectTableDisplay classes = {tableStyles}/>
+            <DashboardTable classes = {tableStyles}/>
           </Typography>
         </main>
       </div>
     );
   }
 
-/* AJAX request */
-// post Ajax request for projects
-const xhrproj = new XMLHttpRequest();
-let projectsToExpress: {
-  map: (arg0: (row: any, i: any) => JSX.Element) => React.ReactNode;
-};
-xhrproj.onreadystatechange = function() {
-  if (xhrproj.readyState === 4 && xhrproj.status === 200) {
-    projectsToExpress = JSON.parse(xhrproj.responseText);
-  }
-};
-xhrproj.open('get', './postProjectNames', false);
-xhrproj.send(null);
-
-const CustomTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: '#333',
-    color: theme.palette.common.white
-  },
-  body: {
-    fontSize: 16
-  }
-}))(TableCell);
-
-const tableStyles: any = (
-  theme: {
-    spacing: { unit: number; }; palette: { background: { default: any; }; };
-  }) => ({
-    root: {
-      width: '100%',
-      marginTop: theme.spacing.unit * 3,
-      overflowX: 'auto'
-    },
-    table: {
-      minWidth: 700
-    },
-    row: {
-      '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.background.default
-      }
-    }
-});
+const DashboardTableCell = withStyles(tableCellStyles)(TableCell);
 
 /**
  * This is projectTable component that displays
@@ -123,9 +96,6 @@ const tableStyles: any = (
  * @param {object} props
  * @return {jsx} component
  */
-
-const myTheme = theme({ palette: { primary: {main: '#616161'} }});
-
 const ProjectTable = function(props: { classes: any; }) {
   const {classes} = props;
   return (
@@ -134,18 +104,18 @@ const ProjectTable = function(props: { classes: any; }) {
         <MuiThemeProvider theme={myTheme}>
           <TableHead >
             <TableRow>
-              <CustomTableCell>Projects</CustomTableCell>
+              <DashboardTableCell>Projects</DashboardTableCell>
             </TableRow>
           </TableHead>
         </MuiThemeProvider>
         <TableBody>
           {projectsToExpress.map((row: any, i: any) => (
             <TableRow className={classes.row} key={i}>
-              <CustomTableCell onClick={() => {
+              <DashboardTableCell onClick={() => {
                 toProject(row);
                 }} component='th' scope='row'>
                 {row}
-              </CustomTableCell>
+              </DashboardTableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -153,8 +123,7 @@ const ProjectTable = function(props: { classes: any; }) {
     </Paper>
   );
 };
-
-const ProjectTableDisplay = withStyles(tableStyles)(ProjectTable);
+const DashboardTable = withStyles(tableStyles)(ProjectTable);
 
 /**
  * Redirect user to logOut page
@@ -171,4 +140,4 @@ function toProject(projectName: string): void {
   window.location.href = '/dashboard?project_name=' + projectName;
 }
 
-export default withStyles(dashboard_styles)(Dashboard);
+export default withStyles(dashboardStyles)(Dashboard);

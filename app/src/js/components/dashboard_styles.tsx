@@ -1,7 +1,7 @@
 import createStyles from '@material-ui/core/styles/createStyles';
 
-/* Styles */
-const dashboardStyles: any = (theme: any) =>  createStyles({
+/* dashboardStyles */
+export const dashboardStyles: any = (theme: any) =>  createStyles({
     root: {
         display: 'flex'
     },
@@ -50,4 +50,30 @@ const dashboardStyles: any = (theme: any) =>  createStyles({
     }
 });
 
-export default dashboardStyles;
+/* tableStyles */
+export const tableStyles: any = (theme: any) =>  createStyles({
+    root: {
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto'
+    },
+    table: {
+        minWidth: 700
+    },
+    row: {
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.background.default
+        }
+    }
+});
+
+/* tableCellStyles */
+export const tableCellStyles: any = (theme: any) =>  createStyles({
+    head: {
+        backgroundColor: '#333',
+        color: theme.palette.common.white
+    },
+    body: {
+        fontSize: 16
+    }
+});

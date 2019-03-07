@@ -1,8 +1,6 @@
 import React from 'react';
-import classNames from 'classnames';
 import theme from '../theme';
-import dashboardStyles from './dashboard_styles';
-import tableStyles from './tableStyle';
+import classNames from 'classnames';
 import Paper from '@material-ui/core/Paper';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {MuiThemeProvider} from '@material-ui/core/styles';
+import {dashboardStyles, tableCellStyles, tableStyles} from './dashboard_styles';
 // lists
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -19,14 +18,40 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 // icons
-import CreateIcon from '@material-ui/icons/Create';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import CreateIcon from '@material-ui/icons/Create';
 // table
 import Table from '@material-ui/core/Table';
 import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
+
+/* AJAX request */
+// post Ajax request for users list
+const xhr = new XMLHttpRequest();
+let usersToExpress: { map: (arg0: (row: any, i: any) => JSX.Element) => React.ReactNode; };
+xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        usersToExpress = JSON.parse(xhr.responseText);
+    }
+};
+xhr.open('get', './postUsers', false);
+xhr.send(null);
+
+// post Ajax request for projects
+const xhrproj = new XMLHttpRequest();
+let projectsToExpress: { map: (arg0: (row: any, i: any) => JSX.Element) => React.ReactNode; };
+xhrproj.onreadystatechange = function() {
+    if (xhrproj.readyState === 4 && xhrproj.status === 200) {
+        projectsToExpress = JSON.parse(xhrproj.responseText);
+    }
+};
+xhrproj.open('get', './postProjectNames', false);
+xhrproj.send(null);
+
+/** Theme for dashboard, set main color as grey */
+const myTheme = theme({ palette: { primary: {main: '#616161'} }});
 
 /* Sidebar: mainList */
 export const mainListItems = (
@@ -110,40 +135,7 @@ function Dashboard(props: { classes: any; }) {
     </div>);
 }
 
-/* AJAX request */
-// post Ajax request for users list
-const xhr = new XMLHttpRequest();
-let usersToExpress: { map: (arg0: (row: any, i: any) => JSX.Element) => React.ReactNode; };
-xhr.onreadystatechange = function() {
-  if (xhr.readyState === 4 && xhr.status === 200) {
-    usersToExpress = JSON.parse(xhr.responseText);
-  }
-};
-xhr.open('get', './postUsers', false);
-xhr.send(null);
-
-// post Ajax request for projects
-const xhrproj = new XMLHttpRequest();
-let projectsToExpress: { map: (arg0: (row: any, i: any) => JSX.Element) => React.ReactNode; };
-xhrproj.onreadystatechange = function() {
-  if (xhrproj.readyState === 4 && xhrproj.status === 200) {
-    projectsToExpress = JSON.parse(xhrproj.responseText);
-  }
-};
-xhrproj.open('get', './postProjectNames', false);
-xhrproj.send(null);
-
-const CustomTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: '#333',
-    color: theme.palette.common.white
-  },
-  body: {
-    fontSize: 16
-  }
-}))(TableCell);
-
-const myTheme = theme({ palette: { primary: {main: '#616161'} }});
+const DashboardTableCell = withStyles(tableCellStyles)(TableCell);
 
 /**
  * This is projectTable component that displays
@@ -159,18 +151,18 @@ const ProjectTable = function(Props: { classes: any; }) {
         <MuiThemeProvider theme={myTheme}>
           <TableHead >
             <TableRow>
-              <CustomTableCell>Projects</CustomTableCell>
+              <DashboardTableCell>Projects</DashboardTableCell>
             </TableRow>
           </TableHead>
         </MuiThemeProvider>
         <TableBody>
           {projectsToExpress.map((row, i) => (
             <TableRow className={classes.row} key={i}>
-              <CustomTableCell className={'align'} onClick={() => {
+              <DashboardTableCell className={'align'} onClick={() => {
                 toProject(row);
                 }} component='th' scope='row'>
                 {row}
-              </CustomTableCell>
+              </DashboardTableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -188,17 +180,17 @@ const WorkersTable = function(props: { classes: any; }) {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <CustomTableCell>Email</CustomTableCell>
-            <CustomTableCell align='right'>Group</CustomTableCell>
+            <DashboardTableCell>Email</DashboardTableCell>
+            <DashboardTableCell align='right'>Group</DashboardTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {usersToExpress.map((row, i) => (
             <TableRow className={classes.row} key={i}>
-              <CustomTableCell component='th' scope='row'>
+              <DashboardTableCell component='th' scope='row'>
                 {row.Email}
-              </CustomTableCell>
-              <CustomTableCell align='right'>{row.Group}</CustomTableCell>
+              </DashboardTableCell>
+              <DashboardTableCell align='right'>{row.Group}</DashboardTableCell>
             </TableRow>
           ))}
         </TableBody>
