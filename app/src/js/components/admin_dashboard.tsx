@@ -1,7 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import theme from '../theme';
-import dashboard_styles from './dashboard_styles';
+import dashboardStyles from './dashboard_styles';
+import tableStyles from './tableStyle';
 import Paper from '@material-ui/core/Paper';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -144,25 +145,6 @@ const CustomTableCell = withStyles((theme) => ({
 
 const myTheme = theme({ palette: { primary: {main: '#616161'} }});
 
-const tableStyles: any = (
-  theme: {
-      spacing: { unit: number; }; palette: { background: { default: any; }; };
-  }) => ({
-    root: {
-        width: '100%',
-        marginTop: theme.spacing.unit * 3,
-        overflowX: 'auto'
-    },
-    table: {
-        minWidth: 700
-    },
-    row: {
-        '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.background.default
-        }
-    }
-});
-
 /**
  * This is projectTable component that displays
  * all the information about projects
@@ -249,4 +231,4 @@ function toProject(projectName: string): void {
   window.location.href = '/dashboard?project_name=' + projectName;
 }
 
-export default withStyles(dashboard_styles)(Dashboard);
+export default withStyles(dashboardStyles)(Dashboard);
