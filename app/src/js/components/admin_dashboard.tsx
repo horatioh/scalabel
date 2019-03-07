@@ -1,14 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
+import theme from '../theme';
+import dashboard_styles from './dashboard_styles';
 import Paper from '@material-ui/core/Paper';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-import {Palette, PaletteOptions} from '@material-ui/core/styles/createPalette';
-// $FlowFixMe
 import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {MuiThemeProvider} from '@material-ui/core/styles';
@@ -39,61 +38,6 @@ export const mainListItems = (
     </ListItem>
   </div>
 );
-
-/* Styles */
-const drawerWidth = 285;
-const styles: any = (theme: any) => ({
-  root: {
-    display: 'flex'
-  },
-  toolbar: {
-    paddingRight: 24
-  },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar
-  },
-  appBar: {
-    backgroundColor: '#333',
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
-  },
-  title: {
-    flexGrow: 1
-  },
-  logout: {
-    alignItems: 'right',
-    padding: '0 50px'
-  },
-  drawerPaper: {
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing.unit * 3,
-    height: '100vh',
-    overflow: 'auto'
-  },
-  chartContainer: {
-    marginLeft: -22
-  },
-  h5: {
-    marginBottom: theme.spacing.unit * 2
-  }
-});
 
 /**
  * This is Dashboard component that displays
@@ -198,32 +142,25 @@ const CustomTableCell = withStyles((theme) => ({
   }
 }))(TableCell);
 
-declare module '@material-ui/core/styles/createMuiTheme' {
-    interface Theme {
-        palette: Palette;
-    }
-    interface ThemeOptions {
-        palette?: PaletteOptions;
-    }
-}
+const myTheme = theme({ palette: { primary: {main: '#616161'} }});
 
-// @ts-ignore
-const theme = createMuiTheme({ palette: {common: {grey: '#616161'}}});
-
-const tableStyles: any = ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto'
-  },
-  table: {
-    minWidth: 700
-  },
-  row: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.background.default
+const tableStyles: any = (
+  theme: {
+      spacing: { unit: number; }; palette: { background: { default: any; }; };
+  }) => ({
+    root: {
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto'
+    },
+    table: {
+        minWidth: 700
+    },
+    row: {
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.background.default
+        }
     }
-  }
 });
 
 /**
@@ -237,7 +174,7 @@ const ProjectTable = function(Props: { classes: any; }) {
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
-        <MuiThemeProvider theme={theme}>
+        <MuiThemeProvider theme={myTheme}>
           <TableHead >
             <TableRow>
               <CustomTableCell>Projects</CustomTableCell>
@@ -312,4 +249,4 @@ function toProject(projectName: string): void {
   window.location.href = '/dashboard?project_name=' + projectName;
 }
 
-export default withStyles(styles)(Dashboard);
+export default withStyles(dashboard_styles)(Dashboard);
