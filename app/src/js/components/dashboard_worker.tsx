@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {MuiThemeProvider} from '@material-ui/core/styles';
-import {dashboardStyles, tableCellStyles, tableStyles} from '../styles/dashboard_styles';
+import {dashboardStyles, tableCellStyles, tableStyles} from '../styles/dashboard';
 // icons
 import SvgIcon from '@material-ui/core/SvgIcon';
 // table

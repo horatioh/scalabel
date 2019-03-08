@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {MuiThemeProvider} from '@material-ui/core/styles';
-import {dashboardStyles, tableCellStyles, tableStyles} from '../styles/dashboard_styles';
+import {dashboardStyles, tableCellStyles, tableStyles} from '../styles/dashboard';
 // lists
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -72,7 +72,6 @@ export const mainListItems = (
  * @return {jsx} component
  */
 function Dashboard(props: { classes: any; }) {
-    // $FlowFixMe
   const {classes} = props;
     /**
      * render function
